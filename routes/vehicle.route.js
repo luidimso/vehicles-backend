@@ -10,6 +10,7 @@ router.get("/", (req, resp) => {
     resp.json(vehicles);
 });
 
+
 router.post("/", vehicleSchema, (req, resp) => {
     var newVehicle = req.body;
     newVehicle["id"] = id.currentID;
@@ -25,6 +26,7 @@ router.post("/", vehicleSchema, (req, resp) => {
     }
 });
 
+
 router.put("/:id", vehicleSchema, (req, resp) => {
     var indexToUpdate = null;
     var idToUpdate = null;
@@ -33,6 +35,7 @@ router.put("/:id", vehicleSchema, (req, resp) => {
         if(req.params.id == vehicles[i].id) {
             indexToUpdate = i;
             idToUpdate = vehicles[i].id;
+            break;
         }
     }
 
@@ -51,9 +54,29 @@ router.put("/:id", vehicleSchema, (req, resp) => {
     }
 });
 
-router.delete("/", (req, resp) => {
-    console.log("Testing")
-    resp.end();
+
+router.delete("/:id", (req, resp) => {
+    var indexToDelete = null;
+
+    for(var i=0; i<vehicles.length; i++) {
+        if(req.params.id == vehicles[i].id) {
+            indexToDelete = i;
+            break;
+        }
+    }
+
+    if(indexToDelete != null) {
+        vehicles.splice(indexToDelete, 1);
+
+        try {
+            fs.writeFileSync("./database/vehicles.json", JSON.stringify(vehicles));
+            resp.status(200).send(vehicles);
+        } catch(err) {
+            resp.status(500).send(err);
+        }
+    } else {
+        resp.status(404).send({message: "Vehicle not found"});
+    }
 });
 
 export default router;
