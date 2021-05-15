@@ -1,6 +1,8 @@
 import express from "express";
 import morgan from 'morgan';
 
+import vehiclesRoute from './routes/vehicle.route.js'
+
 const server = express();
 const PORT = 3000;
 
@@ -13,6 +15,7 @@ const jsonErrorHandler = async (err, req, res, next) => {
 
 server.use(express.json());
 server.use(morgan("tiny"));
+server.use(VEHICLE_URL, vehiclesRoute);
 server.use(jsonErrorHandler);
 
 server.listen(PORT, () => {
