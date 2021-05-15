@@ -11,6 +11,46 @@ router.get("/", (req, resp) => {
 });
 
 
+router.get("/filter", (req, resp) => {
+    var filter = {
+        chassis: vehicles.filter(
+            (option, i, arr) => arr.findIndex(o => o.chassi === option.chassi) === i
+        ),
+        modelos: vehicles.filter(
+            (option, i, arr) => arr.findIndex(o => o.modelo === option.modelo) === i
+        ),
+        marcas: vehicles.filter(
+            (option, i, arr) => arr.findIndex(o => o.marca === option.marca) === i
+        ),
+        anos: vehicles.filter(
+            (option, i, arr) => arr.findIndex(o => o.ano === option.ano) === i
+        ),
+    }
+
+    var filterToSend = {
+        chassis: [],
+        modelos: [],
+        marcas: [],
+        anos: []
+    }
+
+    for(var i=0; i<filter.chassis.length; i++) {
+        filterToSend.chassis.push(filter.chassis[i].chassi);
+    }
+    for(var i=0; i<filter.modelos.length; i++) {
+        filterToSend.modelos.push(filter.modelos[i].modelo);
+    }
+    for(var i=0; i<filter.marcas.length; i++) {
+        filterToSend.marcas.push(filter.marcas[i].marca);
+    }
+    for(var i=0; i<filter.anos.length; i++) {
+        filterToSend.anos.push(filter.anos[i].ano);
+    }
+
+    resp.status(200).send(filterToSend);
+});
+
+
 router.post("/", vehicleSchema, (req, resp) => {
     var newVehicle = req.body;
     newVehicle["id"] = id.currentID;
