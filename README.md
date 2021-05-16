@@ -2,7 +2,7 @@
 
 ## How to run project:
 
-Note: It is necessary to have NodeJS installed
+Note: it is necessary to have NodeJS version 12.17.0 or higher installed
 
 1. Clone the project on your local machine:
 
