@@ -1,5 +1,6 @@
 import express from "express";
 import morgan from 'morgan';
+import cors from 'cors';
 
 import vehiclesRoute from './routes/vehicle.route.js'
 
@@ -12,6 +13,8 @@ const VEHICLE_URL = createUrl("v1", "vehicle");
 const jsonErrorHandler = async (err, req, res, next) => {
     res.status(500).send({ error: err });
 }
+
+server.use(cors());
 
 server.use(express.json());
 server.use(morgan("tiny"));
