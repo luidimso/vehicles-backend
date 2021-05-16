@@ -1,8 +1,15 @@
 # Vehicles management backend
 
+Technologies used:
+
+1. NodeJS v12.17.0
+2. Express v4.17.1
+3. Nodemon v2.0.7
+4. Joi v17.4.0
+
 ## How to run project:
 
-Note: It is necessary to have NodeJS installed
+Note: it is necessary to have NodeJS version 12.17.0 or higher installed
 
 1. Clone the project on your local machine:
 
