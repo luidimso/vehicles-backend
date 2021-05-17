@@ -60,7 +60,7 @@ router.post("/", vehicleSchema, (req, resp) => {
         fs.writeFileSync("./database/vehicles.json", JSON.stringify(vehicles));
         id.currentID++;
         fs.writeFileSync("./database/id.json", JSON.stringify({currentID: id.currentID}));
-        resp.status(200).send("OK");
+        resp.status(200).send(vehicles);
     } catch(err) {
         resp.status(500).send(err);
     }
