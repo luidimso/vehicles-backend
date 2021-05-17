@@ -69,20 +69,21 @@ router.post("/", vehicleSchema, (req, resp) => {
 
 router.put("/:id", vehicleSchema, (req, resp) => {
     var indexToUpdate = null;
-    var idToUpdate = null;
+
+    console.log(req.body);
+    console.log(req.params.id)
 
     for(var i=0; i<vehicles.length; i++) {
         if(req.params.id == vehicles[i].id) {
+            var idToUpdate = vehicles[i].id;
+            vehicles[i] = req.body;
+            vehicles[i]["id"] = idToUpdate;
             indexToUpdate = i;
-            idToUpdate = vehicles[i].id;
-            break;
+            i = vehicles.length;
         }
     }
 
     if(indexToUpdate != null) {
-        vehicles[idToUpdate] = req.body;
-        vehicles[idToUpdate]["id"] = idToUpdate;
-
         try {
             fs.writeFileSync("./database/vehicles.json", JSON.stringify(vehicles));
             resp.status(200).send(vehicles);
@@ -101,7 +102,7 @@ router.delete("/:id", (req, resp) => {
     for(var i=0; i<vehicles.length; i++) {
         if(req.params.id == vehicles[i].id) {
             indexToDelete = i;
-            break;
+            i = vehicles.length;
         }
     }
 
