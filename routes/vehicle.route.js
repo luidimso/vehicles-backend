@@ -10,7 +10,8 @@ router.get("/", (req, resp) => {
     resp.json(vehicles);
 });
 
-
+//Rota para buscar todos os valores de chassi, modelo, marca e ano dos veículos cadastrados
+//Essa rota é usada para popular as opções de filtro na página principal do frontend
 router.get("/filter", (req, resp) => {
     var filter = {
         chassis: vehicles.filter(
