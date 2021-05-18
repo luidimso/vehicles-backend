@@ -14,6 +14,11 @@ const jsonErrorHandler = async (err, req, res, next) => {
     res.status(500).send({ error: err });
 }
 
+server.use((req, res, next) => {
+    res.set('Cache-Control', 'no-store')
+    next()
+});
+
 server.use(cors());
 
 server.use(express.json());
